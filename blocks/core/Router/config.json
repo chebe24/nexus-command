@@ -1,0 +1,58 @@
+{
+  "block": {
+    "name": "Router",
+    "type": "core",
+    "version": "1.0.0",
+    "description": "Webhook request routing and agent orchestration",
+    "author": "Cary Hebert",
+    "created": "2026-03-07"
+  },
+  "dependencies": {
+    "blocks": [
+      "SecurityAgent",
+      "Utilities"
+    ],
+    "gas_services": [
+      "ContentService"
+    ]
+  },
+  "script_properties": {
+    "required": [
+      {
+        "name": "AUTHORIZED_EMAIL",
+        "type": "string",
+        "description": "Via SecurityAgent dependency",
+        "inherited_from": "SecurityAgent"
+      },
+      {
+        "name": "SPREADSHEET_ID",
+        "type": "string",
+        "description": "Via Utilities dependency",
+        "inherited_from": "Utilities"
+      }
+    ],
+    "optional": []
+  },
+  "public_api": [
+    "doGet(e)",
+    "doPost(e)"
+  ],
+  "registered_routes": [
+    {
+      "action": "fileops",
+      "handler": "_Router_handleFileOps",
+      "agent": "built-in"
+    },
+    {
+      "action": "logentry",
+      "handler": "LoggerAgent_logEntry",
+      "agent": "LoggerAgent"
+    },
+    {
+      "action": "syncpatterns",
+      "handler": "PatternRegistryAgent_sync",
+      "agent": "PatternRegistryAgent"
+    }
+  ],
+  "composition_notes": "Must be included in all web-app compositions. Load after SecurityAgent and Utilities."
+}

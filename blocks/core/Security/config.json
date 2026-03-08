@@ -1,0 +1,65 @@
+{
+  "block": {
+    "name": "SecurityAgent",
+    "type": "core",
+    "version": "1.0.0",
+    "description": "Project Sentinel security implementation",
+    "author": "Cary Hebert",
+    "created": "2026-03-07"
+  },
+  "dependencies": {
+    "blocks": [],
+    "gas_services": [
+      "PropertiesService",
+      "SpreadsheetApp",
+      "Session",
+      "Logger"
+    ]
+  },
+  "script_properties": {
+    "required": [
+      {
+        "name": "AUTHORIZED_EMAIL",
+        "type": "string",
+        "description": "Email address authorized to execute functions",
+        "example": "cary.hebert@gmail.com"
+      },
+      {
+        "name": "SPREADSHEET_ID",
+        "type": "string",
+        "description": "Google Sheets ID for Security_Audit logging",
+        "example": "1ABC123xyz..."
+      },
+      {
+        "name": "ENVIRONMENT",
+        "type": "string",
+        "description": "Environment identifier (production/development)",
+        "example": "production",
+        "default": "production"
+      }
+    ],
+    "optional": []
+  },
+  "public_api": [
+    "SecurityAgent_checkAuthorization()",
+    "SecurityAgent_validateConfiguration()",
+    "SecurityAgent_setupScriptProperties(config)",
+    "SecurityAgent_logEvent(eventType, severity, details)",
+    "SecurityAgent_getProperty(propertyName, required)",
+    "SecurityAgent_setProperty(propertyName, value)",
+    "SecurityAgent_viewConfiguration()",
+    "SecurityAgent_testAuthorization()",
+    "SecurityAgent_testConfiguration()",
+    "SecurityAgent_testLogging()",
+    "SecurityAgent_runAllTests()"
+  ],
+  "resources": {
+    "creates_sheets": [
+      "Security_Audit"
+    ],
+    "modifies_sheets": [
+      "Security_Audit"
+    ]
+  },
+  "composition_notes": "Must be included in all compositions. Should be loaded before agents that require authorization."
+}

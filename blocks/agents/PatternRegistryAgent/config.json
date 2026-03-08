@@ -1,0 +1,84 @@
+{
+  "block": {
+    "name": "PatternRegistryAgent",
+    "type": "agent",
+    "version": "1.0.0",
+    "description": "GitHub YAML pattern sync to PatternRegistry sheet",
+    "author": "Cary Hebert",
+    "created": "2026-03-07"
+  },
+  "dependencies": {
+    "blocks": [
+      "SecurityAgent"
+    ],
+    "gas_services": [
+      "UrlFetchApp",
+      "SpreadsheetApp",
+      "PropertiesService"
+    ]
+  },
+  "script_properties": {
+    "required": [
+      {
+        "name": "GITHUB_REGISTRY_URL",
+        "type": "string",
+        "description": "GitHub raw URL for pattern-registry.yaml",
+        "example": "https://raw.githubusercontent.com/chebe24/AI-Agents/main/pattern-registry.yaml"
+      },
+      {
+        "name": "SPREADSHEET_ID",
+        "type": "string",
+        "description": "Spreadsheet for PatternRegistry tab",
+        "example": "1ABC123xyz..."
+      }
+    ],
+    "optional": []
+  },
+  "public_api": [
+    "PatternRegistryAgent_sync()",
+    "PatternRegistryAgent_testSync()"
+  ],
+  "router_contract": {
+    "action": "syncpatterns",
+    "payload_schema": {
+      "action": "string (required, must be 'syncpatterns')"
+    },
+    "response_schema": {
+      "code": "number",
+      "message": "string",
+      "data": {
+        "patternsCount": "number",
+        "sheetName": "string",
+        "rowsWritten": "number"
+      }
+    }
+  },
+  "resources": {
+    "creates_sheets": [
+      "PatternRegistry",
+      "ProdLog"
+    ],
+    "modifies_sheets": [
+      "PatternRegistry",
+      "ProdLog"
+    ],
+    "external_apis": [
+      "GitHub raw content API"
+    ]
+  },
+  "triggers": {
+    "recommended": [
+      {
+        "type": "timeBased",
+        "frequency": "everyDays(1)",
+        "hour": 2,
+        "description": "Daily sync at 2 AM"
+      },
+      {
+        "type": "onOpen",
+        "description": "Sync when spreadsheet opens"
+      }
+    ]
+  },
+  "composition_notes": "Should be included if LoggerAgent uses dynamic pattern validation. Requires public GitHub repo or authenticated access."
+}

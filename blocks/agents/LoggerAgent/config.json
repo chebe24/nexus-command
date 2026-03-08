@@ -1,0 +1,78 @@
+{
+  "block": {
+    "name": "LoggerAgent",
+    "type": "agent",
+    "version": "2.0.0",
+    "description": "Chat log entry management with filename validation",
+    "author": "Cary Hebert",
+    "created": "2026-03-01",
+    "updated": "2026-03-07"
+  },
+  "dependencies": {
+    "blocks": [
+      "SecurityAgent",
+      "PatternRegistryAgent"
+    ],
+    "gas_services": [
+      "SpreadsheetApp",
+      "PropertiesService",
+      "Session",
+      "Utilities"
+    ]
+  },
+  "script_properties": {
+    "required": [
+      {
+        "name": "SPREADSHEET_ID",
+        "type": "string",
+        "description": "Spreadsheet for ChatLogs and ProdLog tabs",
+        "example": "1ABC123xyz..."
+      }
+    ],
+    "optional": []
+  },
+  "public_api": [
+    "LoggerAgent_logEntry(payload)",
+    "LoggerAgent_getPatterns()"
+  ],
+  "router_contract": {
+    "action": "logentry",
+    "payload_schema": {
+      "action": "string (required)",
+      "title": "string (required)",
+      "timestamp": "string (optional)",
+      "date": "string (optional)",
+      "platform": "string (optional)",
+      "project": "string (optional)",
+      "summary": "string (optional)",
+      "url": "string (optional)",
+      "tags": "string (optional)",
+      "status": "string (optional)",
+      "filename": "string (optional, for validation)"
+    },
+    "response_schema": {
+      "code": "number",
+      "message": "string",
+      "data": {
+        "sheetName": "string",
+        "row": "number",
+        "validationStatus": "string",
+        "filename": "string | null"
+      }
+    }
+  },
+  "resources": {
+    "creates_sheets": [
+      "ChatLogs",
+      "ProdLog"
+    ],
+    "modifies_sheets": [
+      "ChatLogs",
+      "ProdLog"
+    ],
+    "reads_sheets": [
+      "PatternRegistry"
+    ]
+  },
+  "composition_notes": "Depends on PatternRegistryAgent for dynamic pattern validation. Works without it using fallback pattern."
+}

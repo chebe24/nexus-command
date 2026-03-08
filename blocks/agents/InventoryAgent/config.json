@@ -1,0 +1,72 @@
+{
+  "block": {
+    "name": "InventoryAgent",
+    "type": "agent",
+    "version": "1.0.0",
+    "description": "Drive folder scanner and AI agent inventory management",
+    "author": "Cary Hebert",
+    "created": "2026-03-07",
+    "origin": "NexusAI/scripts/update-db.gs"
+  },
+  "dependencies": {
+    "blocks": [
+      "SecurityAgent",
+      "Utilities"
+    ],
+    "gas_services": [
+      "DriveApp",
+      "SpreadsheetApp"
+    ]
+  },
+  "script_properties": {
+    "required": [
+      {
+        "name": "DRIVE_FOLDER_ID",
+        "type": "string",
+        "description": "Google Drive folder ID containing /active subfolder with agent files",
+        "example": "0ABC123xyz..."
+      },
+      {
+        "name": "SPREADSHEET_ID",
+        "type": "string",
+        "description": "Via Utilities dependency",
+        "inherited_from": "Utilities"
+      }
+    ],
+    "optional": [
+      {
+        "name": "DEPRECATED_DAYS",
+        "type": "number",
+        "description": "Days until agent flagged as deprecated",
+        "default": 90
+      }
+    ]
+  },
+  "public_api": [
+    "InventoryAgent_init(payload)"
+  ],
+  "router_contract": {
+    "action": "inventory",
+    "payload_schema": {
+      "action": "string (required, must be 'inventory')"
+    },
+    "response_schema": {
+      "code": "number",
+      "message": "string",
+      "data": {
+        "scannedCount": "number",
+        "deprecatedCount": "number"
+      }
+    }
+  },
+  "resources": {
+    "creates_sheets": [
+      "Inventory"
+    ],
+    "modifies_sheets": [
+      "Inventory"
+    ],
+    "accesses_drive": true
+  },
+  "composition_notes": "Requires DRIVE_FOLDER_ID to be configured. Folder must contain /active subfolder."
+}

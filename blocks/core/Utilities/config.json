@@ -1,0 +1,41 @@
+{
+  "block": {
+    "name": "Utilities",
+    "type": "core",
+    "version": "1.0.0",
+    "description": "Shared helper functions for Gateway-OS",
+    "author": "Cary Hebert",
+    "created": "2026-03-07"
+  },
+  "dependencies": {
+    "blocks": [],
+    "gas_services": [
+      "PropertiesService",
+      "SpreadsheetApp",
+      "ContentService",
+      "Logger",
+      "Session"
+    ]
+  },
+  "script_properties": {
+    "required": [
+      {
+        "name": "SPREADSHEET_ID",
+        "type": "string",
+        "description": "Main spreadsheet ID for operations",
+        "example": "1ABC123xyz..."
+      }
+    ],
+    "optional": []
+  },
+  "public_api": [
+    "checkAccount()",
+    "buildResponse(code, message, errors)",
+    "logEvent(eventType, payload)",
+    "getSpreadsheet()",
+    "getOrCreateSheet(name, headers)",
+    "getScriptProperty(key)",
+    "validateFileName(fileName)"
+  ],
+  "composition_notes": "Foundational block with no dependencies. Load first."
+}
