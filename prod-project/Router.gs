@@ -63,6 +63,9 @@ function doPost(e) {
       case "logentry":
         return _Router_wrapResponse(LoggerAgent_logEntry(payload));
 
+      case "syncpatterns":
+        return _Router_wrapResponse(PatternRegistryAgent_sync());
+
       // ── Register new Agents below this line ───────────────────────────
       // case "agentname":
       //   return AgentName_init(payload);

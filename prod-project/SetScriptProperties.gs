@@ -57,6 +57,48 @@ function setProductionScriptProperties() {
 }
 
 /**
+ * Sets the GITHUB_REGISTRY_URL Script Property for PatternRegistryAgent
+ * Run this function once from the Apps Script editor
+ */
+function setGitHubRegistryURL() {
+  const scriptProperties = PropertiesService.getScriptProperties();
+
+  const GITHUB_URL = "https://raw.githubusercontent.com/chebe24/AI-Agents/main/pattern-registry.yaml";
+
+  Logger.log("=== Setting GITHUB_REGISTRY_URL ===");
+  Logger.log(`URL: ${GITHUB_URL}`);
+
+  // Set the property
+  scriptProperties.setProperty('GITHUB_REGISTRY_URL', GITHUB_URL);
+
+  // Verify by reading it back
+  const verifyValue = scriptProperties.getProperty('GITHUB_REGISTRY_URL');
+
+  Logger.log("");
+  Logger.log("=== Verification ===");
+  Logger.log(`Expected: ${GITHUB_URL}`);
+  Logger.log(`Actual:   ${verifyValue}`);
+  Logger.log(`Match:    ${verifyValue === GITHUB_URL ? "✅ YES" : "❌ NO"}`);
+
+  if (verifyValue === GITHUB_URL) {
+    Logger.log("✅ GITHUB_REGISTRY_URL set successfully!");
+    return {
+      success: true,
+      property: "GITHUB_REGISTRY_URL",
+      value: verifyValue
+    };
+  } else {
+    Logger.log("❌ Verification failed!");
+    return {
+      success: false,
+      property: "GITHUB_REGISTRY_URL",
+      expected: GITHUB_URL,
+      actual: verifyValue
+    };
+  }
+}
+
+/**
  * Helper function to view all current Script Properties
  * Useful for debugging
  */

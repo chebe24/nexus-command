@@ -30,15 +30,80 @@
 // =============================================================================
 
 /**
- * Gateway-OS V6 filename pattern:
+ * Gateway-OS V6 filename pattern (FALLBACK ONLY).
+ * This pattern is used if PatternRegistry tab is not available.
  * Format: NN-YYYY-MM-DD_Component_FileType_Title.ext
  * Example: 02-2026-03-01_Gateway_YAML_PatternRegistryV6.md
  */
-const V6_FILENAME_PATTERN = /^\d{2}-\d{4}-\d{2}-\d{2}_[A-Za-z0-9]+_[A-Za-z0-9]+_[A-Za-z0-9]+\.[a-z]{2,4}$/;
+const V6_FILENAME_PATTERN_FALLBACK = /^\d{2}-\d{4}-\d{2}-\d{2}_[A-Za-z0-9]+_[A-Za-z0-9]+_[A-Za-z0-9]+\.[a-z]{2,4}$/;
 
 // =============================================================================
 // PUBLIC FUNCTIONS
 // =============================================================================
+
+/**
+ * Reads all filename patterns from the PatternRegistry tab.
+ * Returns an array of regex patterns, or falls back to hardcoded pattern if tab doesn't exist.
+ *
+ * @returns {Array<RegExp>} Array of filename pattern regexes
+ */
+function LoggerAgent_getPatterns() {
+  try {
+    const ss = SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID'));
+    const sheet = ss.getSheetByName("PatternRegistry");
+
+    if (!sheet) {
+      _ProdLog_write(
+        "LoggerAgent",
+        "PATTERN_REGISTRY_NOT_FOUND",
+        "WARN",
+        "PatternRegistry tab not found, using fallback pattern"
+      );
+      return [V6_FILENAME_PATTERN_FALLBACK];
+    }
+
+    // Read all pattern rows (skip header)
+    const data = sheet.getDataRange().getValues();
+    const patterns = [];
+
+    for (let i = 1; i < data.length; i++) {
+      const regexString = data[i][3]; // Regex column (4th column)
+      if (regexString) {
+        try {
+          patterns.push(new RegExp(regexString));
+        } catch (e) {
+          _ProdLog_write(
+            "LoggerAgent",
+            "INVALID_REGEX",
+            "WARN",
+            `Invalid regex in row ${i + 1}: ${regexString}`
+          );
+        }
+      }
+    }
+
+    if (patterns.length === 0) {
+      _ProdLog_write(
+        "LoggerAgent",
+        "NO_PATTERNS_FOUND",
+        "WARN",
+        "No valid patterns found in PatternRegistry, using fallback"
+      );
+      return [V6_FILENAME_PATTERN_FALLBACK];
+    }
+
+    return patterns;
+
+  } catch (e) {
+    _ProdLog_write(
+      "LoggerAgent",
+      "PATTERN_READ_ERROR",
+      "ERROR",
+      `Error reading patterns: ${e.message}`
+    );
+    return [V6_FILENAME_PATTERN_FALLBACK];
+  }
+}
 
 /**
  * Logs an entry to the ChatLogs tab with optional filename validation.
@@ -60,7 +125,12 @@ function LoggerAgent_logEntry(payload) {
     let actualStatus = payload.status || "In Progress";
 
     if (payload.filename) {
-      const isValid = V6_FILENAME_PATTERN.test(payload.filename);
+      // Get all patterns from PatternRegistry tab (or fallback)
+      const patterns = LoggerAgent_getPatterns();
+
+      // Test filename against all patterns
+      const isValid = patterns.some(pattern => pattern.test(payload.filename));
+
       if (!isValid) {
         validationStatus = "Naming Error";
         actualStatus = "Naming Error";
@@ -68,7 +138,7 @@ function LoggerAgent_logEntry(payload) {
           "LoggerAgent",
           "FILENAME_VALIDATION_FAILED",
           "WARN",
-          `Invalid filename: ${payload.filename}`
+          `Invalid filename: ${payload.filename} (tested against ${patterns.length} patterns)`
         );
       } else {
         _ProdLog_write(
