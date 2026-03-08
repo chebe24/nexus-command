@@ -242,6 +242,19 @@ cd ~/Documents/02_Projects/Proj_AI-Agents
 
 ---
 
+## Cross-Platform Context Snippets
+
+Pre-built context blocks for loading project context into other AI tools.
+Located in `docs/` — copy the right one and paste it as the first message.
+
+| File | Use With | Purpose |
+|------|----------|---------|
+| `docs/ctx-full.md` | Claude | Full coding context — architecture, IDs, rules |
+| `docs/ctx-docs.md` | Gemini / ChatGPT | PRDs, MVPs, documentation |
+| `docs/ctx-research.md` | Perplexity | Research queries framed by project constraints |
+
+---
+
 ## Shelved: Trilingual RAG Engine
 
 > **Status: Not started. Do not implement unless Cary explicitly asks.**
