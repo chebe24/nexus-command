@@ -160,3 +160,16 @@ deprecated/**/*
 # Git reflog cleanup (run before major pushes to keep .git folder lean):
 #   git gc --prune=now --aggressive
 # ============================================================================
+
+
+# ====================
+# iCLOUD PLACEHOLDERS  ← Prevent iCloud offload stubs from entering Git
+# ====================
+
+# When macOS offloads a file to iCloud, it replaces it with a lightweight
+# stub ending in .icloud. These are NOT the real file and must never be
+# committed. The .nosync suffix opts folders out of iCloud sync entirely.
+*.icloud
+.icloud
+**/*.icloud
+*.nosync
