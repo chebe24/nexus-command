@@ -198,3 +198,7 @@ deprecated/**/*
 #   git status
 #   git check-ignore -v <filename>
 # ============================================================================
+LoggerAgent/venv/
+02_Projects/
+LoggerAgent/
+##-*
