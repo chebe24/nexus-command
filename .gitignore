@@ -206,3 +206,6 @@ LoggerAgent/venv/
 02_Projects/
 LoggerAgent/
 ##-*
+logger-agent/data/
+logger-agent/logs/
+logger-agent/venv/
