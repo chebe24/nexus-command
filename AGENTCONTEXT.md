@@ -245,6 +245,22 @@ cd ~/Developer.nosync/nexus-command
 
 ---
 
+## Developer.nosync — Project Landscape (March 2026)
+
+All active projects live in `~/Developer.nosync/`. Each is a standalone git repo.
+
+| Folder | GitHub Repo | Type | Status |
+|--------|-------------|------|--------|
+| `nexus-command/` | chebe24/AI-Agents | Gateway-OS (GAS + CLI) | Active |
+| `PDFAnnotatorAgent/` | chebe24/pdf-annotator-agent | OCR pipeline (GAS + JS) | Active |
+| `eureka-ocr-automation/` | chebe24/eureka-ocr-automation | Hazel/Docker OCR | Active |
+| `resume-tools/` | chebe24/resume-tools | Resume/cover letter GAS | Maintained |
+| `git-github-workflow/` | chebe24/git-github-workflow | Educational git guide | Maintained |
+| `app-engineer-agent/` | — (local only) | Planning docs, Google Docs | Local archive |
+| `hello-world/` | chebe24/hello-world | GitHub Flow practice | Dormant |
+
+---
+
 ## Rules for AI Assistants
 
 1. **Think step by step** — provide justification using evidence from research or project context
