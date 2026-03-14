@@ -53,7 +53,7 @@ if [ $OCR_EXIT -eq 0 ]; then
 
   case "$SUBJECT_CODE" in
 
-    Math|math|MATH)
+    Math)
       # Extract module number e.g. _M1_ _M2_ _M5_
       MODULE=$(echo "$FILENAME" | grep -oE '_M[0-9]+_' | tr -d '_')
 

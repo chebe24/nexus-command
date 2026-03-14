@@ -75,6 +75,9 @@ function doPost(e) {
       //   return AgentName_init(payload);
       // ──────────────────────────────────────────────────────────────────
 
+      case "route":
+        return routeToModel(payload);
+
       default:
         logEvent('UNKNOWN_ACTION', { action });
         return buildResponse(400, `Unknown action: "${action}". Check Router.gs for registered routes.`);
