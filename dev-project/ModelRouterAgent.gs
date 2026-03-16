@@ -186,8 +186,12 @@ function _callPerplexity(prompt, context) {
       muteHttpExceptions: true
     });
 
-    const result = JSON.parse(response.getContentText());
+    const raw    = response.getContentText();
+    const result = JSON.parse(raw);
     const text   = result.choices?.[0]?.message?.content || '';
+    if (!text) {
+      return buildResponse(500, 'Perplexity returned empty output', { raw: raw.substring(0, 500) });
+    }
     return buildResponse(200, 'Perplexity response received', { model: 'perplexity', output: text });
 
   } catch (e) {
