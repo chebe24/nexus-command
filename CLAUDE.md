@@ -235,6 +235,48 @@ Then check the GitHub Actions tab for green checkmarks on both jobs.
 
 ---
 
+## Gateway Route Command (Zero-Friction AI Routing)
+
+When Cary pastes a message starting with `gateway route`, execute it automatically — no confirmation needed.
+
+### Format
+```
+gateway route [task_type]: [prompt]
+```
+
+### What to do
+1. `source /Users/caryhebert/Developer.nosync/21_systems/nexus-command/.env.local`
+2. Fire the two-step curl POST to `$DEV_WEBHOOK_URL` with `action: "route"`, `task_type`, and `prompt`
+3. Parse the JSON response and present `data.output` clearly — do not dump raw JSON
+4. If `code` is not 200, diagnose the error
+
+### Task type → model mapping
+| `task_type` | Routes to | Use for |
+|-------------|-----------|---------|
+| `research` | Perplexity | Cited research, best practices |
+| `current_events` | Perplexity | Recent news, time-sensitive topics |
+| `complex_code` | Claude | Multi-file code, architecture review |
+| `architecture` | Claude | System design, GAS structure |
+| `debugging` | Claude | Error diagnosis and fixes |
+| `long_form` | Claude | Reports, letters, proposals |
+| `quick_script` | GPT-4o | Short scripts, one-off tasks |
+| `prototype` | GPT-4o | Fast working proof-of-concept |
+| `mandarin` | Gemini | Chinese/French translation |
+| `ocr` | Gemini | OCR cleanup, text extraction |
+
+### Examples (paste as-is, fill in `[...]`)
+```
+gateway route research: [question]
+gateway route current_events: [topic] — past [7 / 30] days
+gateway route debugging: ERROR: [error] CODE: [code]
+gateway route mandarin: Translate to Chinese: [text]
+gateway route quick_script: Write a GAS script that [what it should do]
+```
+
+Full template list: `docs/route-prompts.md`
+
+---
+
 ## Webhook POST Workflow (AI-Executable)
 
 > Credentials are in `.env.local` (gitignored). Load them before running any curl command.
