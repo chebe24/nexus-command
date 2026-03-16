@@ -43,6 +43,9 @@ jobs:
       - name: Push dev-project
         run: cd dev-project && clasp push --force
 
+      - name: Deploy dev-project (update live web app version)
+        run: cd dev-project && clasp deploy --deploymentId AKfycbxQiZQIiltlYtmomigjNsmSVC4z-WRoSFIHFrSjMEZ85t-ReCSuN4D-u0WxDJ--obon -d "Auto-deploy $(date +%Y-%m-%d)"
+
   # ---------------------------------------------------------------------------
   # PROD — requires manual approval
   # Set up a GitHub Environment named "production" with a required reviewer
