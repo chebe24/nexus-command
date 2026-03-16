@@ -179,6 +179,20 @@ git commit -m "type: message"     # conventional commit format (see below)
 git push                          # push to origin/main
 ```
 
+### Memory update triggers
+After certain changes, update the relevant memory file before committing:
+
+| If you changed... | Update this memory file |
+|-------------------|------------------------|
+| GAS script ID or webhook URL | `project_env_local.md` + `last_verified` date |
+| Spreadsheet IDs or sheet structure | `project_sheet_state.md` + `last_verified` date |
+| Repo structure in Developer.nosync | `reference_developer_nosync.md` + `last_verified` date |
+| How Claude should behave | `feedback_*.md` — add or update the relevant rule |
+| Cary's role or preferences | `user_cary.md` |
+
+Memory files live at:
+`~/.claude/projects/-Users-caryhebert-Developer-nosync-21-systems-nexus-command/memory/`
+
 ### Conventional commit format
 | Type | When to use |
 |------|-------------|
