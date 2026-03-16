@@ -18,11 +18,11 @@ if api_key:
         print("2. Generate a new API key")
         print("3. Open .env file and replace the placeholder")
     else:
-        # Show only first 10 and last 4 characters for security
-        masked_key = f"{api_key[:10]}...{api_key[-4:]}"
-        print(f"✅ API key loaded successfully: {masked_key}")
+        print("✅ API key loaded successfully.")
         print(f"✅ Key length: {len(api_key)} characters")
         print("\n🎉 Your .env file is configured correctly!")
+
+
 else:
     print("❌ API key not found in .env file")
     print("\n📝 Please check that:")
