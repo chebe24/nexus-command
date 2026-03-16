@@ -9,6 +9,7 @@
 |------|-------------|
 | `docs/security-guide.md` | Before handling any credentials, secrets, or API keys |
 | `docs/ssh-troubleshooting.md` | When `git push` or clasp auth fails with SSH errors |
+| `docs/troubleshooting.md` | When CI/CD fails, webhook errors, or GAS deploy issues |
 | `.github/ISSUE_TEMPLATE.md` | When filing or triaging a bug report or feature request |
 | `.github/workflows/deploy.yml` | When modifying the CI/CD pipeline |
 
