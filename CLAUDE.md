@@ -76,10 +76,13 @@ nexus-command/                      ← Git repo root
 
 ## Script IDs & Web App URLs
 
+> **Stored locally only — see `.env.local` at repo root (gitignored).**
+> Variables: `DEV_SCRIPT_ID`, `DEV_WEBHOOK_URL`, `PROD_SCRIPT_ID`, `PROD_WEBHOOK_URL`
+
 | Env  | GAS Script ID | Web App URL |
 |------|---------------|-------------|
-| Dev  | `1o_3FUWvqXzFYeJOParcxBYcAacZy5Ig3MbgbTAX5TCixKrrchW7IBOBW` | https://script.google.com/macros/s/AKfycbxQiZQIiltlYtmomigjNsmSVC4z-WRoSFIHFrSjMEZ85t-ReCSuN4D-u0WxDJ--obon/exec |
-| Prod | `1Znk2rEPszw359bPAaxzVORGSOTby1vFNYp2oMR2N93lMb6Vo_gd9auib` | https://script.google.com/macros/s/AKfycbxaaDHgJf3xBE8KZJBlpVSE2LSkaIZdLLeaBhx6z6y4uAq4fa0UiM3QI7oJ_WO8A91Ibg/exec |
+| Dev  | see `DEV_SCRIPT_ID` in `.env.local` | see `DEV_WEBHOOK_URL` in `.env.local` |
+| Prod | see `PROD_SCRIPT_ID` in `.env.local` | see `PROD_WEBHOOK_URL` in `.env.local` |
 
 GitHub Secrets:
 - `CLASDEV_JSON` — clasp OAuth token for dev account
