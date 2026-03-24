@@ -37,6 +37,14 @@ if echo "$STAGED" | grep -qE "CLAUDE.md|AGENTCONTEXT.md"; then
   warn "  → Docs changed — verify memory files are still accurate"
 fi
 
+# Trigger: Code changed but AGENTCONTEXT.md not updated
+if echo "$STAGED" | grep -qE "\.(gs|sh|yaml|js)$"; then
+  if ! echo "$STAGED" | grep -q "AGENTCONTEXT.md"; then
+    warn "  → Code files changed without updating AGENTCONTEXT.md"
+    echo "     Did the project context change? If yes, update AGENTCONTEXT.md in this commit."
+  fi
+fi
+
 if [ $WARNED -eq 1 ]; then
   echo ""
   echo "  Memory path: $MEMORY_DIR"
