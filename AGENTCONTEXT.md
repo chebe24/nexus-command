@@ -1,3 +1,4 @@
+<system_context>
 # AGENTCONTEXT.md — Gateway-OS Project Context
 
 > **For any AI assistant (Claude, Gemini, ChatGPT, Cursor, etc.):** Read this entire file before doing anything.
@@ -306,3 +307,4 @@ Will use Google's free embedding API and a local `.env` file (never committed to
 - Git hooks live at `.githooks/pre-commit` (tracked in repo) — activate once per machine: `git config core.hooksPath .githooks`
 
 - ORIENTATION.md — new session checklist: credentials, MCP servers, CLASP, ProdLog, file path gotchas
+</system_context>
