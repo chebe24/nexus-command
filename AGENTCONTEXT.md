@@ -86,8 +86,8 @@ nexus-command/                      ← Git repo root (~/Developer.nosync/21_sys
 
 | Env  | GAS Script ID | Web App URL |
 |------|---------------|-------------|
-| Dev  | `1o_3FUWvqXzFYeJOParcxBYcAacZy5Ig3MbgbTAX5TCixKrrchW7IBOBW` | https://script.google.com/macros/s/AKfycbxC3q2qNHivWzRpvLZdWnH8r5uuDTUTPn-NtPG_3g2lC6Gy1ErDiDZoGzJ_LSIp-_Z6mQ/exec |
-| Prod | `1Znk2rEPszw359bPAaxzVORGSOTby1vFNYp2oMR2N93lMb6Vo_gd9auib` | Run `./ai-agents.sh deploy prod` to get the current URL |
+| Dev  | `1sFIR8BG4Oo5RkOj3A9UFYSyJAuCS1cu9rFg-G2olJJfBOsIO3tObRTcB` | https://script.google.com/macros/s/AKfycbxQiZQIiltlYtmomigjNsmSVC4z-WRoSFIHFrSjMEZ85t-ReCSuN4D-u0WxDJ--obon/exec |
+| Prod | `1okfeLoXEpiq81Qdctv5Irph4oSO67VzhOtGTqJQGcd8gzkGhsSNUlT5G` | https://script.google.com/macros/s/AKfycbxAluWilnJHGljMQAW4gpSsPC6Tci1YxWsy_btxn-ORMJbq8axEMr43tlV4rpnjBwhrjg/exec |
 
 GitHub Secrets (stored in the chebe24/nexus-command repo):
 - `CLASDEV_JSON` — clasp OAuth token for dev
@@ -149,7 +149,7 @@ When sending a POST request to log an AI conversation, use this payload:
 
 ```json
 {
-  "action":    "logentry",
+  "action":    "log",
   "timestamp": "2026-03-07T18:00:00Z",
   "date":      "2026-03-07",
   "platform":  "Claude",
@@ -230,7 +230,7 @@ cd ~/Developer.nosync/21_systems/nexus-command
 - Dev modular refactor — `agents/` subfolder with LoggerAgent + InventoryAgent
 - **ModelRouterAgent.gs** — All 4 AI routes active in Dev (Claude, GPT-4o, Gemini, Perplexity)
 - All AI API keys stored in Dev Script Properties (March 13, 2026)
-- Raycast snippets for all 8 ModelRouterAgent use cases (`templates/raycast-snippets.json`)
+- Raycast snippets for all 8 ModelRouterAgent use cases (`docs/gateway-os-snippets.json`)
 
 ### 🔧 In Progress
 - **RelocationTracker.gs** — SHSID onboarding document tracker
@@ -303,5 +303,6 @@ Will use Google's free embedding API and a local `.env` file (never committed to
 - CREDENTIALS.local lives at: ~/Developer.nosync/CREDENTIALS.local
 - MCP filesystem tools CANNOT reach ~/Developer.nosync — always use Terminal commands for edits here
 - sed -i in-place editing fails on iCloud placeholder files — use Python3 replace pattern instead
+- Git hooks live at `.githooks/pre-commit` (tracked in repo) — activate once per machine: `git config core.hooksPath .githooks`
 
 - ORIENTATION.md — new session checklist: credentials, MCP servers, CLASP, ProdLog, file path gotchas
