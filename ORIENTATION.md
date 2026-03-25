@@ -177,3 +177,22 @@ cat .clasp.json   # confirm which project you are linked to
 
 **GitHub remote:** `github.com/chebe24/nexus-command.git`
 **Always use:** `/usr/bin/git` | `cd` to repo first | Python3 for file edits
+
+---
+
+## Curl POST Pattern (GAS Webhook)
+
+GAS redirects POST requests — `-L` breaks them by converting POST to GET.
+Always use the two-step pattern:
+
+source ~/Developer.nosync/21_systems/nexus-command/.env.local
+
+REDIRECT=$(curl -s -o /dev/null -w "%{redirect_url}" -X POST \
+  "$DEV_WEBHOOK_URL" \
+  -H "Content-Type: application/json" \
+  -d '{"webhook_secret":"YOUR_SECRET","action":"logentry","event":"YOUR_EVENT","details":"YOUR_DETAILS","status":"SUCCESS"}')
+
+curl -s "$REDIRECT"
+
+If REDIRECT is empty → deployment needs a new version in GAS editor.
+If GET works but POST fails → always a curl pattern issue, not a code issue.
