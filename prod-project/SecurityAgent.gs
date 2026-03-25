@@ -315,7 +315,7 @@ function SecurityAgent_viewConfiguration() {
 function SecurityAgent_checkWebhookToken(token) {
   if (!token) return false;
 
-  const storedSecret = PropertiesService.getScriptProperties().getProperty('WEBHOOK_SECRET');
+  const storedSecret = PropertiesService.getScriptProperties().getProperty('DEV_WEBHOOK_SECRET');
   if (!storedSecret) return false;
 
   const authorized = (token === storedSecret);
