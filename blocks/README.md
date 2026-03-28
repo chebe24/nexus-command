@@ -6,6 +6,22 @@
 
 ---
 
+> ⚠️ **PIPELINE STATUS: NOT ACTIVE** (as of March 28, 2026)
+>
+> `scripts/compose.sh` does not yet exist. The automated build pipeline described in this README is planned but unbuilt.
+>
+> **Current sources of truth for all active code:**
+> - `dev-project/` → dev GAS deployment
+> - `prod-project/` → prod GAS deployment
+>
+> Do NOT edit `.gs` files here expecting them to deploy. Edit directly in `dev-project/` or `prod-project/`.
+> This folder is preserved as reference architecture and will be activated when a 3rd GAS project requires it.
+> See Ideas Backlog in AGENTCONTEXT.md.
+
+---
+
+---
+
 ## Overview
 
 This directory contains **self-contained agent blocks** that can be composed into different applications (compositions). Each block is a single-responsibility module with clear dependencies, API contracts, and configuration.

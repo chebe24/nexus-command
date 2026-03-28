@@ -3,6 +3,16 @@
 **Environment:** Production
 **Account:** cary.hebert@gmail.com
 **Version:** 2.0.0
+
+---
+
+> 🚫 **DO NOT DEPLOY FROM HERE**
+>
+> This folder's `.clasp.json` points at the live production GAS script.
+> Deploy production only via: `./ai-agents.sh deploy prod` from the repo root.
+> This folder is a reference snapshot — not the active deployment source.
+
+---
 **Status:** Active
 
 ---

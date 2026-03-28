@@ -243,6 +243,7 @@ cd ~/Developer.nosync/21_systems/nexus-command
 ### ⏳ Ideas Backlog
 - Journal Du Matin — daily Google Slides automation
 - GC-IAM-Auditor — monthly GCP service account audit
+- `blocks/compositions/ compose pipeline` — build `scripts/compose.sh` when a 3rd GAS project is needed; until then, `dev-project/` and `prod-project/` are the only sources of truth for deployment
 
 ---
 
@@ -298,7 +299,7 @@ A planned semantic search engine over educational standards in English, French, 
 Source files exist in `scripts/` but are disconnected from Gateway-OS.
 Will use Google's free embedding API and a local `.env` file (never committed to Git).
 
-## File Path Gotchas (added Mar 17 2026)
+## File Path Gotchas (added Mar 17 2026, updated Mar 28 2026)
 - Script filename uses HYPHENS: hazel-ocr-bridge.sh (not underscores)
 - Full path: ~/Developer.nosync/21_systems/nexus-command/hazel-ocr-bridge.sh
 - CREDENTIALS.local lives at: ~/Developer.nosync/CREDENTIALS.local
@@ -307,4 +308,6 @@ Will use Google's free embedding API and a local `.env` file (never committed to
 - Git hooks live at `.githooks/pre-commit` (tracked in repo) — activate once per machine: `git config core.hooksPath .githooks`
 
 - ORIENTATION.md — new session checklist: credentials, MCP servers, CLASP, ProdLog, file path gotchas
+- `blocks/` and `compositions/` folders exist but the compose pipeline (`scripts/compose.sh`) does NOT exist — do not treat these as deployment sources; `dev-project/` and `prod-project/` are the only clasp deploy roots
+- `compositions/` contains `.clasp.json` files pointing at real GAS script IDs — never run `clasp push` from inside `compositions/`; always deploy from `dev-project/` or `prod-project/` only
 </system_context>

@@ -6,6 +6,23 @@
 
 ---
 
+> 🚫 **DO NOT DEPLOY FROM THIS FOLDER** (as of March 28, 2026)
+>
+> The `.clasp.json` files in each composition subfolder point at real GAS script IDs.
+> Running `clasp push` from inside any composition will overwrite the live GAS project with potentially stale code.
+>
+> **Always deploy from:**
+> - `dev-project/` → `./ai-agents.sh deploy dev`
+> - `prod-project/` → `./ai-agents.sh deploy prod`
+>
+> `scripts/compose.sh` does not exist yet — the build pipeline is unbuilt.
+> These folders are reference snapshots only, not active deployment sources.
+> See Ideas Backlog in AGENTCONTEXT.md.
+
+---
+
+---
+
 ## Overview
 
 Compositions are **deployable Google Apps Script projects** assembled from agent blocks. Each composition mixes and matches blocks based on its specific needs.
