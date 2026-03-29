@@ -23,6 +23,10 @@ FOLDER_MATH_SHARED="$DRIVE_SHARED/3-Maths"
 FOLDER_ADMIN="$DRIVE_WORK/30_Administrative"
 FOLDER_MANDARIN="$DRIVE_PERSONAL/41_Mandarin"
 FOLDER_QUARANTINE="/Users/caryhebert/Library/CloudStorage/GoogleDrive-chebert4@ebrschools.org/My Drive/00_Inbox/Quarantine"
+FOLDER_SCIENCE="$DRIVE_WORK/34_Sciences"
+FOLDER_SS="$DRIVE_WORK/35_SocialStudies"
+FOLDER_FRENCH="$DRIVE_WORK/36_French"
+FOLDER_COMM="$DRIVE_WORK/32_Communication"
 
 # --- INPUT ---
 FILE_PATH="$1"
@@ -83,11 +87,12 @@ if [ $OCR_EXIT -eq 0 ]; then
 
       else
         # Math file but no module number — quarantine
+        QUARANTINE_REASON="Math file has no module number detected"
         DEST_FOLDER="$FOLDER_QUARANTINE"
         PROJECT_TAG="Math-NoModule-Quarantine"
         mkdir -p "$DEST_FOLDER"
-        mv "$OCR_FILE_PATH" "$DEST_FOLDER/$OCR_FILENAME"
-        echo "⚠️  Math file has no module number — sent to Quarantine."
+        mv "$OCR_FILE_PATH" "$DEST_FOLDER/REVIEW_$OCR_FILENAME"
+        echo "⚠️  Math file has no module number — sent to Quarantine. ($QUARANTINE_REASON)"
       fi
       ;;
 
@@ -107,12 +112,45 @@ if [ $OCR_EXIT -eq 0 ]; then
       echo "📁 Moved to: $DEST_FOLDER/"
       ;;
 
+    Sci|sci|SCI)
+      DEST_FOLDER="$FOLDER_SCIENCE"
+      PROJECT_TAG="Science"
+      mkdir -p "$DEST_FOLDER"
+      mv "$OCR_FILE_PATH" "$DEST_FOLDER/$OCR_FILENAME"
+      echo "📁 Moved to: $DEST_FOLDER/"
+      ;;
+
+    SS|ss)
+      DEST_FOLDER="$FOLDER_SS"
+      PROJECT_TAG="SocialStudies"
+      mkdir -p "$DEST_FOLDER"
+      mv "$OCR_FILE_PATH" "$DEST_FOLDER/$OCR_FILENAME"
+      echo "📁 Moved to: $DEST_FOLDER/"
+      ;;
+
+    Fren|fren|FREN|French|french)
+      DEST_FOLDER="$FOLDER_FRENCH"
+      PROJECT_TAG="FrenchImmersion"
+      mkdir -p "$DEST_FOLDER"
+      mv "$OCR_FILE_PATH" "$DEST_FOLDER/$OCR_FILENAME"
+      echo "📁 Moved to: $DEST_FOLDER/"
+      ;;
+
+    Comm|comm|COMM)
+      DEST_FOLDER="$FOLDER_COMM"
+      PROJECT_TAG="Communications"
+      mkdir -p "$DEST_FOLDER"
+      mv "$OCR_FILE_PATH" "$DEST_FOLDER/$OCR_FILENAME"
+      echo "📁 Moved to: $DEST_FOLDER/"
+      ;;
+
     *)
+      QUARANTINE_REASON="No route for subject code: $SUBJECT_CODE"
       DEST_FOLDER="$FOLDER_QUARANTINE"
       PROJECT_TAG="Unmatched-Quarantine"
       mkdir -p "$DEST_FOLDER"
-      mv "$OCR_FILE_PATH" "$DEST_FOLDER/$OCR_FILENAME"
-      echo "⚠️  No match for '$SUBJECT_CODE' — sent to Quarantine."
+      mv "$OCR_FILE_PATH" "$DEST_FOLDER/NAMING-ERROR_$OCR_FILENAME"
+      echo "⚠️  No match for '$SUBJECT_CODE' — sent to Quarantine. ($QUARANTINE_REASON)"
       ;;
 
   esac
@@ -133,8 +171,9 @@ else
   # OCR failed — quarantine original file
   echo "❌ OCR failed for: $FILENAME — sending to Quarantine."
 
+  QUARANTINE_REASON="OCR process failed with exit code $OCR_EXIT"
   mkdir -p "$FOLDER_QUARANTINE"
-  mv "$FILE_PATH" "$FOLDER_QUARANTINE/$FILENAME"
+  mv "$FILE_PATH" "$FOLDER_QUARANTINE/FAILED-OCR_$FILENAME"
 
   REDIRECT=$(curl -s -o /dev/null -w "%{redirect_url}" -X POST \
     "$WEBAPP_URL" \
